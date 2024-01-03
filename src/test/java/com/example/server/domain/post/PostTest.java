@@ -1,5 +1,7 @@
-package com.example.server.domain;
+package com.example.server.domain.post;
 
+import com.example.server.domain.post.Post;
+import com.example.server.domain.post.PostRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
