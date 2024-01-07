@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,13 +43,14 @@ class InMemoryUserDetailsServiceTest {
         @Bean
         SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
-                    .httpBasic(Customizer.withDefaults());
+                    .httpBasic(withDefaults());
             http
-                    .authorizeHttpRequests(authz -> authz
-                    .requestMatchers("/test").hasRole("USER")
-                    .anyRequest().authenticated());
+                    .authorizeHttpRequests(c -> c
+                            .requestMatchers("/test").hasRole("USER")
+                            .anyRequest().authenticated());
             return http.build();
         }
+
         @Bean
         UserDetailsService userDetailsService() {
             var userDetailsService = new InMemoryUserDetailsManager();
@@ -64,6 +66,7 @@ class InMemoryUserDetailsServiceTest {
         PasswordEncoder passwordEncoder() {
             return NoOpPasswordEncoder.getInstance();
         }
+
         @Bean
         TestController testController() {
             return new TestController();
