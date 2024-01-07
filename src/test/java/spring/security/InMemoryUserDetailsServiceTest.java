@@ -5,11 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,12 +38,23 @@ class InMemoryUserDetailsServiceTest {
 
     @TestConfiguration
     static class TestConfig {
+
+        @Bean
+        SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .httpBasic(Customizer.withDefaults());
+            http
+                    .authorizeHttpRequests(authz -> authz
+                    .requestMatchers("/test").hasRole("USER")
+                    .anyRequest().authenticated());
+            return http.build();
+        }
         @Bean
         UserDetailsService userDetailsService() {
             var userDetailsService = new InMemoryUserDetailsManager();
             var user = User.withUsername("user")
                     .password("12345")
-                    .authorities("read")
+                    .roles("USER")
                     .build();
             userDetailsService.createUser(user);
             return userDetailsService;
