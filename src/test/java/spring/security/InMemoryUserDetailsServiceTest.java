@@ -56,7 +56,8 @@ class InMemoryUserDetailsServiceTest {
             var userDetailsService = new InMemoryUserDetailsManager();
             var user = User.withUsername("user")
                     .password("12345")
-                    .roles("USER")
+//                    .roles("USER") // same with follow configuration
+                    .authorities("ROLE_USER")
                     .build();
             userDetailsService.createUser(user);
             return userDetailsService;
