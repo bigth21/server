@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = CustomUserDetailsServiceTest.TestController.class)
@@ -30,9 +32,10 @@ public class CustomUserDetailsServiceTest {
 
     @Test
     void test() throws Exception {
-        mockMvc.perform(get("/test")
+        mockMvc.perform(get("/hello")
                         .with(httpBasic("john", "12345")))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("hello"));
     }
 
     @TestConfiguration
@@ -119,9 +122,9 @@ public class CustomUserDetailsServiceTest {
 
     @RestController
     static class TestController {
-        @GetMapping("/test")
+        @GetMapping("/hello")
         public String test() {
-            return "test";
+            return "hello";
         }
     }
 }
