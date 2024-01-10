@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class PostUser {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "postUserId")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
