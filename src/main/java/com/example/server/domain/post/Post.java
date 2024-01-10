@@ -1,6 +1,7 @@
 package com.example.server.domain.post;
 
 import com.example.server.domain.BaseEntity;
+import com.example.server.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
