@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-public class BasicAuthTest {
+public class BasicAuthTest extends TestControllerConfig {
 
     @Autowired
     MockMvc mockMvc;
@@ -26,33 +26,17 @@ public class BasicAuthTest {
 
     @Test
     void test() throws Exception {
-        mockMvc.perform(get("/test")
+        mockMvc.perform(get("/hello")
                         .with(httpBasic("user", securityProperties.getUser().getPassword())))
                 .andExpect(status().isOk())
-                .andExpect(content().string("test"))
+                .andExpect(content().string("hello"))
                 .andDo(print());
     }
 
     @Test
     void test_401() throws Exception {
-        mockMvc.perform(get("/test"))
+        mockMvc.perform(get("/hello"))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
-    }
-
-    @TestConfiguration
-    static class TestConfig {
-        @Bean
-        TestController testController() {
-            return new TestController();
-        }
-    }
-
-    @RestController
-    static class TestController {
-        @GetMapping("/test")
-        public String test() {
-            return "test";
-        }
     }
 }

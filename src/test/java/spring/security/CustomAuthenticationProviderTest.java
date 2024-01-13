@@ -12,8 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -21,23 +19,23 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = CustomAuthenticationProviderTest.TestController.class)
-public class CustomAuthenticationProviderTest {
+@WebMvcTest
+public class CustomAuthenticationProviderTest extends TestControllerConfig {
 
     @Autowired
     MockMvc mockMvc;
 
     @Test
     void test() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/test")
+        mockMvc.perform(MockMvcRequestBuilders.get("/hello")
                         .with(httpBasic("john", "12345")))
                 .andExpect(status().isOk())
-                .andExpect(content().string("test"));
+                .andExpect(content().string("hello"));
     }
 
     @Test
     void test_401() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/test")
+        mockMvc.perform(MockMvcRequestBuilders.get("/hello")
                         .with(httpBasic("john", "123456")))
                 .andExpect(status().isUnauthorized());
     }
@@ -48,11 +46,6 @@ public class CustomAuthenticationProviderTest {
         @Bean
         AuthenticationProvider authenticationProvider() {
             return new CustomAuthenticationProvider();
-        }
-
-        @Bean
-        TestController testController() {
-            return new TestController();
         }
     }
 
@@ -73,14 +66,6 @@ public class CustomAuthenticationProviderTest {
         @Override
         public boolean supports(Class<?> authentication) {
             return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
-        }
-    }
-
-    @RestController
-    static class TestController {
-        @GetMapping("/test")
-        public String test() {
-            return "test";
         }
     }
 }

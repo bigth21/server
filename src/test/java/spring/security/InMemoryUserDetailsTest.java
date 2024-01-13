@@ -22,18 +22,18 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = InMemoryUserDetailsTest.TestController.class)
-class InMemoryUserDetailsTest {
+@WebMvcTest
+class InMemoryUserDetailsTest extends TestControllerConfig {
 
     @Autowired
     MockMvc mockMvc;
 
     @Test
     void test() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/test")
+        mockMvc.perform(MockMvcRequestBuilders.get("/hello")
                         .with(httpBasic("user", "12345")))
                 .andExpect(status().isOk())
-                .andExpect(content().string("test"));
+                .andExpect(content().string("hello"));
     }
 
     @TestConfiguration
@@ -45,7 +45,7 @@ class InMemoryUserDetailsTest {
                     .httpBasic(withDefaults());
             http
                     .authorizeHttpRequests(c -> c
-                            .requestMatchers("/test").hasRole("USER")
+                            .requestMatchers("/hello").hasRole("USER")
                             .anyRequest().authenticated());
             return http.build();
         }
@@ -65,19 +65,6 @@ class InMemoryUserDetailsTest {
         @Bean
         PasswordEncoder passwordEncoder() {
             return NoOpPasswordEncoder.getInstance();
-        }
-
-        @Bean
-        TestController testController() {
-            return new TestController();
-        }
-    }
-
-    @RestController
-    static class TestController {
-        @GetMapping("/test")
-        public String test() {
-            return "test";
         }
     }
 

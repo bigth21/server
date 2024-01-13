@@ -25,8 +25,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = CustomUserDetailsServiceTest.TestController.class)
-public class CustomUserDetailsServiceTest {
+@WebMvcTest
+public class CustomUserDetailsServiceTest extends TestControllerConfig {
     @Autowired
     MockMvc mockMvc;
 
@@ -49,11 +49,6 @@ public class CustomUserDetailsServiceTest {
         @Bean
         PasswordEncoder passwordEncoder() {
             return NoOpPasswordEncoder.getInstance();
-        }
-
-        @Bean
-        TestController testController() {
-            return new TestController();
         }
     }
 
@@ -117,14 +112,6 @@ public class CustomUserDetailsServiceTest {
         @Override
         public boolean isEnabled() {
             return true;
-        }
-    }
-
-    @RestController
-    static class TestController {
-        @GetMapping("/hello")
-        public String test() {
-            return "hello";
         }
     }
 }
