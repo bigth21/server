@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class JpaUserAndSecurityUserSeparation {
+public class JpaUserAndSecurityUserComposition {
 
     @Entity
     static class User {
@@ -36,6 +36,7 @@ public class JpaUserAndSecurityUserSeparation {
         }
     }
 
+    // Usage of composition. Effective java say that "Favour composition over inheritance"
     static class SecurityUser implements UserDetails {
         private final User user;
 
