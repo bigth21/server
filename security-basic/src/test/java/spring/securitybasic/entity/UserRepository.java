@@ -1,4 +1,4 @@
-package spring.security.entity;
+package spring.securitybasic.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

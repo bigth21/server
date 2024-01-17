@@ -1,4 +1,4 @@
-package spring.security.entity;
+package spring.securitybasic.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
