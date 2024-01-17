@@ -5,6 +5,8 @@ spring:
     username: root
     password: password
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
       ddl-auto: create
@@ -17,5 +19,6 @@ logging:
   level:
     root: info
     org.hibernate.SQL: debug
+    org.springframework.security: debug
 
 
