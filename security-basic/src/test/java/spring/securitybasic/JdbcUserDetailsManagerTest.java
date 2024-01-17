@@ -1,4 +1,4 @@
-package spring.security;
+package spring.securitybasic;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,10 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import spring.security.entity.Authority;
-import spring.security.entity.AuthorityRepository;
-import spring.security.entity.User;
-import spring.security.entity.UserRepository;
+import spring.securitybasic.entity.Authority;
+import spring.securitybasic.entity.AuthorityRepository;
+import spring.securitybasic.entity.User;
+import spring.securitybasic.entity.UserRepository;
 
 import javax.sql.DataSource;
 

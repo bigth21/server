@@ -1,4 +1,4 @@
-package spring.security;
+package spring.securitybasic;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
