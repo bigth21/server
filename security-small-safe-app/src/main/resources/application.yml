@@ -4,12 +4,18 @@ spring:
     url: jdbc:mysql://localhost:3306/server
     username: root
     password: password
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:/sql/schema.sql
+      data-locations: classpath:/sql/data.sql
+
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
