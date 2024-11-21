@@ -1,4 +1,7 @@
-spring.application.name: server
+spring:
+  application.name: server
+  profiles:
+    active: local
 management.endpoints.web:
   base-path: /
   exposure.include: health
