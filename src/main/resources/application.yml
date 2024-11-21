@@ -4,7 +4,7 @@ spring:
     active: local
 management.endpoints.web:
   base-path: /
-  exposure.include: health
+  exposure.include: health, env
 
 
 
