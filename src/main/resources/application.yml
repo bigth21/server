@@ -1,5 +1,7 @@
 spring:
-  application.name: server
+  application:
+    name: server
+#    version: 1.1.0 // TODO: Apply tag version
   profiles:
     active: local
 management.endpoints.web:
