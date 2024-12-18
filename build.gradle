@@ -39,3 +39,8 @@ tasks.named('test') {
 jar {
     enabled = false
 }
+
+bootJar {
+    archiveBaseName.set('server')
+    archiveVersion.set('')
+}
