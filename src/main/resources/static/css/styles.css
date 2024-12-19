@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    color: #3f464d;
+    font-family: "Spoqa Han Sans", sans-serif;
+}
+
+a {
+    all: unset;
+}
+
+a:link {
+    text-decoration: none;
+    color: #3f464d;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #3f464d;
+}
+
+a:active {
+    text-decoration: none;
+    color: #3f464d;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #3f464d;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+}
+
+nav .links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+nav .links li {
+    display: inline-block;
+}
+
+nav .links a {
+    color: #fff;
+    text-decoration: none;
+    font-size:  1rem;
+    transition: color 0.3s;
+}
+
+nav .links a:hover {
+    color: #00bcd4;
+}
+
+nav .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+nav .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+nav .menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+}
+
